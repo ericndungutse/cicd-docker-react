@@ -1,0 +1,22 @@
+services:
+  # Service Name
+  frontend_web:
+    build:
+      # Where files and folders for this image are
+      # going to come from
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  frontend_tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    # Overrites normal CMD in Dockerfile
+    command: ["npm", "run", "test"]
